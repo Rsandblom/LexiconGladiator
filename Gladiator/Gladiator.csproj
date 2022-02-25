@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20220120121443_NewApproach.cs" />
+    <Compile Remove="Migrations\20220120121443_NewApproach.Designer.cs" />
+    <Compile Remove="Migrations\20220124215240_Reload.cs" />
+    <Compile Remove="Migrations\20220124215240_Reload.Designer.cs" />
+    <Compile Remove="Migrations\20220124215703_Reloa.cs" />
+    <Compile Remove="Migrations\20220124215703_Reloa.Designer.cs" />
+    <Compile Remove="Migrations\20220124215800_ArenasAndFights.cs" />
+    <Compile Remove="Migrations\20220124215800_ArenasAndFights.Designer.cs" />
+    <Compile Remove="Migrations\20220127132805_WinnerFighter.cs" />
+    <Compile Remove="Migrations\20220127132805_WinnerFighter.Designer.cs" />
+    <Compile Remove="Migrations\20220127133614_WinnerFighter.cs" />
+    <Compile Remove="Migrations\20220127133614_WinnerFighter.Designer.cs" />
+    <Compile Remove="Migrations\20220131115017_ArenaUpdate.cs" />
+    <Compile Remove="Migrations\20220131115017_ArenaUpdate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Models\Names.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Models\Names.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\react\GearShop.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.22" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.22" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.22" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.22">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+
+</Project>

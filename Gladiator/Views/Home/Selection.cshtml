@@ -1,0 +1,244 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Gladiator.Models
+@model Gladiator.ViewModels.PlayerGladiatorsIndexViewModel
+
+@inject SignInManager<ApplicationUser> SignInManager
+    @inject UserManager<ApplicationUser> UserManager
+
+    @{ ViewData["Title"] = "Gladiator"; }
+
+    @section Scripts {
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script asp-append-version="true">
+            function setArena(image) {
+                clearBorders('bgSelect');
+                document.body.style.backgroundImage = "url('/img/bg/" + image + ".png')";
+                document.getElementById("arenaId").value = image;
+            }
+            function setFighterID(ct) {
+                clearBorders('fighterSelect');
+                document.getElementById(ct.Id).style.border = "3px solid cyan";
+                document.getElementById("challengerId").value = ct.Id;
+                document.getElementById("Name").textContent = 'Name: ' + ct.Name;
+                document.getElementById("Str").textContent = 'STR: ' + ct.Str;
+                document.getElementById("Def").textContent = 'DEF: ' + ct.Def;
+                document.getElementById("Xp").textContent = 'XP: ' + ct.Xp;
+                document.getElementById("submit").disabled = false;
+            }
+            function setAdversary() {
+                document.getElementById("adversaryId").value = document.getElementById("adv").value;
+            }
+            
+            function clearBorders(cla) {
+                var cols = document.getElementsByClassName(cla);
+                for (i = 0; i < cols.length; i++) {
+                    cols[i].style.border = 'none';
+                }
+            }
+        </script>
+    }
+
+    <style>
+        /* kommer lägga style:grejor in i css när vi närmar oss 100% med UI:layouten */
+        .indexHeader {
+            grid-area: header;
+            text-align: center;
+            white-space: normal;
+            height: 90px;
+            width: 320px;
+            position: center;
+            margin: 0px;
+            padding: 10px;
+            padding-top: 0px;
+        }
+
+        .indexLeft {
+            grid-area: menu;
+            text-align: center;
+            height: 562px;
+            width: 350px;
+            position: unset;
+            margin: 0px;
+            margin-left: 15px;
+            padding: 10px;
+        }
+
+        .indexMain {
+            grid-area: main;
+            text-align: left;
+            font-family: Arial, sans-serif, 14px;
+            height: 382px;
+            width: 320px;
+            border: 3px solid cyan;
+            background-color: black;
+            opacity: 0.8;
+            position: center;
+            margin: 0px;
+            padding: 15px;
+        }
+
+        .indexRight {
+            grid-area: right;
+            text-align: center;
+            height: 562px;
+            width: 350px;
+            margin: 0px;
+            padding: 10px;
+        }
+
+        .indexFooter {
+            grid-area: footer;
+            text-align: center;
+            height: 90px;
+            width: 320px;
+            position: center;
+            margin: 0px;
+            padding: 10px;
+        }
+
+        .overlayLeft {
+            z-index: 9;
+            text-align: initial;
+            color: #fff;
+            width: 100px;
+            position: center;
+            margin-left: 15px;
+            padding: 10px;
+            background-color: black;
+            opacity: 0.8;
+        }
+
+        .overlayRight {
+            z-index: 3;
+            text-align: initial;
+            color: #fff;
+            width: 100px;
+            justify-self: center;
+            margin-left: 15px;
+            padding: 10px;
+            background-color: black;
+            opacity: 0.8;
+        }
+        /* just nu härmar Left*/
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                'menu menu header header right right'
+                'menu menu main main right right'
+                'menu menu footer footer right right';
+            grid-gap: 10px;
+            padding: 10px;
+            margin: 0px;
+        }
+
+            .grid-container > div {
+                text-align: center;
+                justify-items: center;
+                padding: 10px;
+                font-size: 12px;
+            }
+
+        .progress span {
+            margin: 30px;
+            display: flow;
+            position: center;
+            width: 80%;
+            height: 30px;
+        }
+
+        .player1HP {
+            color: #000;
+            background-color: aqua;
+            width: 100%;
+        }
+
+        .player2HP {
+            color: #000;
+            background-color: aqua;
+            width: 100%;
+        }
+
+        body {
+            background-image: url(/img/bg/gA1d.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: top center;
+        }
+    </style>
+
+    <!-- TEXTDELAR BÖR KOMPLETTERAS MED IF-SATSER ELLER DYLIKT FÖR ATT SWITCHA MELLAN DEFAULT TEXT = synlig för alla vs ACTIVE GAME TEXT = synlig för inloggade -->
+    <!-- (gör mer än gärna så mycket jag kan, men har inte grejat med identity m.fl. tillräckligt för å fixa detta på egen hand inom ett par timmar...) -->
+    <div id="serverId"></div>
+    <div class="grid-container">
+        <aside class="indexLeft">
+            <!-- antingen if-sats eller ViewBag med spelarens namn; annars: PLAYER 1 -->
+            <h5>@UserManager.GetUserName(User)</h5>
+
+            <div width="350" height="500" class="center-block">
+                <h3>My Gladiators</h3><br />
+
+                <div style="flex-wrap:wrap">
+                    @foreach (var item in Model.PlayersGladiatorsList)
+                    {
+                        <img class="fighterSelect" src="~/img/gl/@item.PictureSrc()" width="150" height="250" id="@item.Id" onclick="setFighterID({ Name:'@item.Name', Id:@item.Id, Str:@item.Str, Def:@item.Def, Xp:@item.Xp})" />
+                    }
+                </div>
+            </div>
+        </aside>
+        <div>
+            <div class="indexHeader">
+                <h5>GLADIATOR PVP</h5>  <!-- if-sats eller dyl; if (aktivt spel && pve) {byt nament till GLADIATOR PVE} else {GLADIATOR PVP} -->
+                <h1>VS</h1>
+            </div>
+            <div class="indexMain">
+                <!-- if-sats (eller dyl) för default-texten som switchas mot combat log i berättande textform vid aktivt spel -->
+                <h5>WELCOME TO ARENA!</h5><br>Select your fighter, adversary and arena.<br />
+                <div class="stats">
+
+                    <div id="Name">&nbsp;</div>
+
+                    <div id="Str">&nbsp;</div>
+
+                    <div id="Def">&nbsp;</div>
+
+                    <div id="Xp">&nbsp;</div>
+                </div>
+                <form asp-controller="Home" asp-action="Selection" method="post">
+                    <div>
+                        <input type="hidden" id="challengerId" name="challengerId" value="">
+                        <input type="hidden" id="adversaryId" name="adversaryId" value="CPU">
+                        <input type="hidden" id="arenaId" name="arenaId" value="gA1d">
+                        <input class="btn btn-primary btn-xs" type="submit" id="submit" disabled="disabled" value="START">
+                    </div>
+                </form>
+            </div>
+
+            </div>
+        <aside class="indexRight">            
+            <div width="300" height="500" class="center-block">
+                <h3>Arenas:</h3><br />
+
+                <div style="flex-wrap:wrap">
+                    <img class="bgSelect" src="~/img/bg/gA1d.png" width="150" height="84" onclick="setArena('gA1d');
+                this.style.border = '3px solid cyan';" />
+                    <img class="bgSelect" src="~/img/bg/gA2fl.png" width="150" height="84" onclick="setArena('gA2fl');
+                this.style.border = '3px solid cyan';" />
+                    <img class="bgSelect" src="~/img/bg/gA3fl.png" width="150" height="84" onclick="setArena('gA3fl');
+                this.style.border = '3px solid cyan';" />
+
+                </div>
+                
+                <select name="adv" id="adv" onchange="setAdversary()">
+                    <option value="CPU" >Fight the computer</option>
+                    @foreach (var item in Model.UsersList)
+                    {
+                        <option value="@item.Player.Id">@item.Player.Name</option> //   UserName</option>
+                    }
+                </select>
+            </div>
+        </aside>
+        <footer class="indexFooter">
+        </footer>
+    </div>
+

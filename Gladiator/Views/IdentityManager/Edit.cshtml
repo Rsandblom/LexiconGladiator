@@ -1,0 +1,85 @@
+﻿@model Gladiator.ViewModels.IdentityManagerEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Registered User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleIdString" class="mb-2 mr-sm-2"></label>
+                <select asp-for="RoleIdString" asp-items="Model.Roles" class="btn btn-primary dropdown-toggle"></select>
+                <span asp-validation-for="RoleIdString"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PlayerName" class="control-label"></label>
+                <input asp-for="PlayerName" class="form-control" />
+                <span asp-validation-for="PlayerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Gold" class="control-label"></label>
+                <input asp-for="Gold" class="form-control" />
+                <span asp-validation-for="Gold" class="text-danger"></span>
+            </div>
+
+            <h3>Gladiators</h3>
+
+            <table class="table table-striped">
+                <tbody>
+                    @foreach (var fighter in Model.FightersList)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-controller="AdminFighters" asp-action="Details" asp-route-id="@fighter.Id">@Html.DisplayFor(modelItem => fighter.Name)</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+        <div>
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <input class="btn btn-danger" type="submit" value="Delete User" asp-controller="IdentityManager" asp-action="Delete" asp-route-id="Id" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="mt-2">
+    <a  asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

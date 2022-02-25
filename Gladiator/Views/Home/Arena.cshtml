@@ -1,0 +1,96 @@
+﻿@{ ViewData["Title"] = "Gladiator"; }
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/fight.js" asp-append-version="true"></script>
+}
+
+<style>
+    .item1 { grid-area: header; text-align: center; white-space: normal; height: 90px; width: 300px; position: center; margin: 0px; padding: 10px; padding-top: 0px; }
+    .item2 { grid-area: menu; text-align: center; height: 562px; width: 350px; position: unset; margin: 0px; margin-left: 15px; padding: 10px; }
+    .stats { grid-area: main; display: grid; grid-gap: 1px; grid-template-columns: repeat(3, 1fr); text-align: left; font-family: Arial, sans-serif, 14px;
+        height: 382px; width: 320px; border: 3px solid cyan; background-color: black; opacity: 0.8; position: center; margin: 0px; padding: 15px; }
+    .item4 { grid-area: right; text-align: center; height: 562px; width: 350px; margin: 0px; padding: 10px; }
+    .item5 { grid-area: footer; text-align: center; height: 90px; width: 320px; position: center; margin: 0px; padding: 10px; }
+
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+            'menu menu header header right right'
+            'menu menu main main right right'
+            'menu menu footer footer right right';
+        grid-gap: 10px;
+        padding: 10px;
+        margin: 0px;
+    }
+
+        .grid-container > div { text-align: center; padding: 10px; font-size: 12px; }
+
+    .progress span { margin: 30px; display: flow; position: center; width: 80%; height: 30px; }
+    .progress-bar-aqua { color: #000; background-color: aqua; width: 100%; } /* player1 health bar */
+    .progress-bar-cyan { color: #000; background-color: aqua; width: 100%; } /* player2 health bar */
+
+    body {
+        /* white-space: nowrap; */
+        background-image: url(/img/bg/gA1d.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: top center;
+    }
+</style>
+
+<div id="serverId"></div>
+<div class="grid-container">
+    <aside class="item2">
+        <h5 id="Name1">&nbsp;</h5>
+        <div class="progress">
+            <div class="progress-bar progress-bar-aqua" role="progressbar" id="HP1"></div>
+        </div>
+        <div>
+            <img src="/img/gl/gL1s.png" width="300" height="500" class="center-block">
+        </div>
+    </aside>
+    <div>
+        <div class="item1">
+            <h5>GLADIATOR PVP</h5>
+            <h1>VS</h1>
+        </div>
+        <div class="stats">
+
+            <div id="Str1"></div>
+                <div>STR</div>
+            <div id="Str2"></div>
+
+            <div id="Def1"></div>
+                <div>DEF</div>
+            <div id="Def2"></div>
+
+            <div id="XP1"></div>
+                <div>XP</div>
+            <div id="XP2"></div>
+        </div>
+    </div>
+    <aside class="item4">
+        <h5 id="Name2">&nbsp;</h5>
+        <div class="progress">
+            <div class="progress-bar progress-bar-aqua" role="progressbar" id="HP2"></div>
+        </div>
+        <div>
+            <img src="/img/gl/gR1s.png" width="300" height="500" class="center-block">
+        </div>
+    </aside>
+	 <footer class="item5">
+	 	<div class="row">
+	 		<div class="col">
+	 			<input type="button" class="btn btn-danger" id="attackButton" value="No fight yet" />
+	 		</div>
+	 	 	<div class="col">
+	 			<input type="button" class="btn btn-info" id="joinButton" value="Join!" />
+	 		</div>
+	 	</div>
+
+	 	<div id="message"></div>
+
+	 </footer>
+</div>
+

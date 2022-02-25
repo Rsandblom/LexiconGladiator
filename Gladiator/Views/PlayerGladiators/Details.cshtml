@@ -1,0 +1,100 @@
+﻿@model Gladiator.Models.Fighter
+
+@{
+    ViewData["Title"] = "Details Gladiator";
+}
+
+<h2>Details Gladiator</h2>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Str)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Str)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Hp)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Hp)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Xp)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Xp)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Def)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Def)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CalculatedStrenght)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CalculatedStrenght)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CalculatedHealtPoints)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CalculatedHealtPoints)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CalculatedExperiencePoints)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CalculatedExperiencePoints)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.CalculatedDefence)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.CalculatedDefence)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+        <dt class="col-sm-3">
+            Head modifier
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Head.Name)
+        </dd>
+        <dt class="col-sm-3">
+            Body Modifier
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Body.Name)
+        </dd>
+        <dt class="col-sm-3">
+            Left hand modifiers
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.LeftHand.Name)
+        </dd>
+        <dt class="col-sm-3">
+            Right hand modifiers
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.RightHand.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

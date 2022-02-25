@@ -1,0 +1,73 @@
+﻿@model Gladiator.Models.Modifiers
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Modifiers</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="FighterId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Str" class="control-label"></label>
+                <input asp-for="Str" class="form-control" />
+                <span asp-validation-for="Str" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hp" class="control-label"></label>
+                <input asp-for="Hp" class="form-control" />
+                <span asp-validation-for="Hp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Xp" class="control-label"></label>
+                <input asp-for="Xp" class="form-control" />
+                <span asp-validation-for="Xp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Def" class="control-label"></label>
+                <input asp-for="Def" class="form-control" />
+                <span asp-validation-for="Def" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeOfGear" class="control-label"></label>
+                <select asp-for="TypeOfGear" class="form-control"
+                        asp-items="Html.GetEnumSelectList<GearType>()">
+                    <option>Selet type of gear</option>>
+                </select>
+                <span asp-validation-for="TypeOfGear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

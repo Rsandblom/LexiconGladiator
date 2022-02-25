@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    .item1 { grid-area: header; text-align: center; white-space: normal; height: 90px; width: 300px; position: center; margin: 0px; padding: 10px; padding-top: 0px; }
+    .item2 { grid-area: menu; text-align: center; height: 562px; width: 350px; position: unset; margin: 0px; margin-left: 15px; padding: 10px; }
+    .item3 { grid-area: main; text-align: center; font-family: Arial, sans-serif, 14px; color: white; height: 382px; width: 320px; border: 3px solid cyan;
+            background-color: black; opacity: 0.7; position: center; margin: 0px; padding: 15px; }
+    .item4 { grid-area: right; text-align: center; height: 562px; width: 350px; margin: 0px; padding: 10px; }
+    .item5 { grid-area: footer; text-align: center; height: 90px; width: 320px; position: center; margin: 0px; padding: 10px; }
+
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+            'menu menu header header right right'
+            'menu menu main main right right'
+            'menu menu footer footer right right';
+        grid-gap: 10px;
+        padding: 10px;
+        margin: 0px;
+    }
+
+        .grid-container > div { text-align: center; padding: 10px; font-size: 12px; }
+
+    body { /* white-space: nowrap; */ background-image: url(/img/bg/mbg2c.png); background-size: contain; background-repeat: no-repeat; background-position: top center; }
+</style>
+
+<div class="grid-container">
+    <aside class="item2">
+        <div></div>
+    </aside>
+    <header class="item1">
+        <div class="item1"><h1>Log in</h1></div>
+    </header>
+    <div>
+        <div class="item3">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black box-shadow mb-3">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row">
+                        <partial name="_LoginPartial" />
+                    </div>
+
+                </div>
+            </nav>
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-black box-shadow mb-3">
+                    <div class="container">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="IdentityManager" asp-action="Index">Registered user</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Gladiator</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Opponent</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Modifiers" asp-action="Index">Modifiers</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            }
+        </div>
+    </div>
+    <aside class="item4">
+        <div></div>
+    </aside>
+    <footer></footer>
+</div>

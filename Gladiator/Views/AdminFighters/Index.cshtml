@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Gladiator.Models.Fighter>
+
+@{
+    ViewData["Title"] = "Admin Fighters Managment";
+}
+
+<h1>Gladiators and Opponents</h1>
+
+<p>
+    <a asp-action="Create">Create New Gladiator or Opponent</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsOpponent)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsOpponent)
+            </td>
+
+            <td>
+                <a asp-action="AddModifiers" asp-route-id="@item.Id">Add modifiers</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

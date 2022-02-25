@@ -1,0 +1,77 @@
+﻿@model Gladiator.ViewModels.EditFightersViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit Gladiator or Opponent</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Str" class="control-label"></label>
+                <input asp-for="Str" class="form-control" />
+                <span asp-validation-for="Str" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hp" class="control-label"></label>
+                <input asp-for="Hp" class="form-control" />
+                <span asp-validation-for="Hp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Xp" class="control-label"></label>
+                <input asp-for="Xp" class="form-control" />
+                <span asp-validation-for="Xp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Def" class="control-label"></label>
+                <input asp-for="Def" class="form-control" />
+                <span asp-validation-for="Def" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HeadModifierId" class="mb-2 mr-sm-2"></label>
+                <select asp-for="HeadModifierId" asp-items="Model.Heads" class="btn btn-primary dropdown-toggle"></select>
+                <span asp-validation-for="HeadModifierId"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BodyModifierId" class="mb-2 mr-sm-2"></label>
+                <select asp-for="BodyModifierId" asp-items="Model.Bodies" class="btn btn-primary dropdown-toggle"></select>
+                <span asp-validation-for="BodyModifierId"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RightHandModifierId" class="mb-2 mr-sm-2"></label>
+                <select asp-for="RightHandModifierId" asp-items="Model.RightHands" class="btn btn-primary dropdown-toggle"></select>
+                <span asp-validation-for="RightHandModifierId"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LeftHandModifierId" class="mb-2 mr-sm-2"></label>
+                <select asp-for="LeftHandModifierId" asp-items="Model.LeftHands" class="btn btn-primary dropdown-toggle"></select>
+                <span asp-validation-for="LeftHandModifierId"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,101 @@
+﻿@{
+	ViewData["Title"] = "Venue";
+}
+
+@section Scripts {
+	<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+	<script src="~/js/fight.js" asp-append-version="true"></script>
+}
+
+<h1>Fighting venue</h1>
+
+<div id="serverId"></div>
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<div class="card">
+				<div class="card-body">
+					<div id="Name1" class="card-title h3"></div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div class="progress" style="width: 3em;">
+								<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" id="HP1"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col font-weight-bold">Strength: </div>
+								<div class="col" id="Str1"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col font-weight-bold">Defence: </div>
+								<div class="col" id="Def1"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col font-weight-bold">XP: </div>
+								<div class="col" id="XP1"></div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+
+			<div class="card">
+				<div class="card-body">
+					<div id="Name2" class="card-title h3"></div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div class="progress" style="width: 3em;">
+								<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" id="HP2"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col font-weight-bold">Strength: </div>
+								<div class="col" id="Str2"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col font-weight-bold">Defence: </div>
+								<div class="col" id="Def2"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col font-weight-bold">XP: </div>
+								<div class="col" id="XP2"></div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<input type="button" class="btn btn-danger" id="attackButton" value="Attack!" />
+		</div>
+		@*<div class="col">
+			<input type="button" class="btn btn-success" id="resetButton" value="Reset attack" />
+		</div>*@
+		<div class="col">
+			<input type="button" class="btn btn-info" id="joinButton" value="Join Fight" />
+		</div>
+		<div class="col">
+			<input type="button" class="btn btn-warning" id="updateButton" value="Update" />
+		</div>
+	</div>
+
+
+	<div id="message"></div>
+	<div id="round"></div>
+
+</div>

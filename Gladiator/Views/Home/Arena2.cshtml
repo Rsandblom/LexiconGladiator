@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewData["Title"] = "MediumRare";
+}
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/fight.js" asp-append-version="true"></script>
+}
+
+<style>
+    .indexHeader { grid-area: header; text-align: center; white-space: normal; height: 90px; width: 320px; position: center; margin: 0px;
+                   padding: 10px; padding-top: 0px; }
+    .indexLeft { grid-area: menu; text-align: center; height: 562px; width: 350px; position: unset; margin: 0px; margin-left: 15px; padding: 10px; }
+    .indexMain { grid-area: main; text-align: left; font-family: Arial, sans-serif, 14px; height: 382px; width: 320px; border: 3px solid cyan;
+                 background-color: black; opacity: 0.8; position: center; margin: 0px; padding: 15px; }
+    .indexRight { grid-area: right; text-align: center; height: 562px; width: 350px; margin: 0px; padding: 10px; }
+    .indexFooter { grid-area: footer; text-align: center; height: 90px; width: 320px; position: center; margin: 0px; padding: 10px; }
+
+    .overlayLeft { z-index: 9; text-align: initial; color: #fff; width: 100px; position: center; margin-left: 15px; padding: 10px; }
+    .overlayRight { z-index: 3; text-align: initial; color: #fff; width: 100px; justify-self: center; margin-left: 15px; padding: 10px; }
+
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+            'menu menu header header right right'
+            'menu menu main main right right'
+            'menu menu footer footer right right';
+        grid-gap: 10px;
+        padding: 10px;
+        margin: 0px;
+    }
+
+        .grid-container > div { text-align: center; justify-items: center; padding: 10px; font-size: 12px; }
+
+    .progress span { margin: 30px; display: flow; position: center; width: 80%; height: 30px; }
+    .player1HP { color: #000; background-color: aqua; width: 100%; }
+    .player2HP { color: #000; background-color: aqua; width: 100%; }
+
+    body { background-image: url(/img/bg/gA2fl.png); background-size: contain; background-repeat: no-repeat; background-position: top center; }
+</style>
+
+<div id="serverId"></div>
+<div class="grid-container">
+    <aside class="indexLeft">
+            <h5>ARCANIA INFINITE</h5>
+            <div class="progress" style="width: 150px; height: 15px; margin-left: 90px;">
+                <div class="progress-bar player1HP" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+            </div>
+            <div>
+                <img src="/img/gl/5.png" width="400" height="500" class="center-block">
+            </div>
+        <div class="overlayLeft" style="background: black; opacity: 0.6;">
+            <p>XP: 2800<br>Strength: 62<br>Defense: 38</p>
+        </div>
+    </aside>
+    <div>
+        <div class="indexHeader">
+            <h5>GLADIATOR PVP</h5>
+            <h1>VS</h1>
+        </div>
+        <div class="indexMain">
+            <h5>WELCOME TO ARENA!</h5><br>It's a glorious day to find out if current champion can defend his honor or we can coronate a new Winner!
+            <br>Are YOU our new Champion? <br><br>You can play against computer or against your friend.<br>
+            Take a look at Wall of Glory to view your competition.<br>Use log in option to participate.
+        </div>
+    </div>
+    <aside class="indexRight">
+        <h5>HYDRALISK123</h5>
+        <div class="progress" style="width: 150px; height: 15px; margin-left: 90px;">
+            <div class="progress-bar player2HP" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+        </div>
+        <div>
+            <img src="/img/gl/0.png" width="400" height="500" class="center-block" style="transform: scaleX(-1)">
+        </div>
+        <div class="overlayLeft" style="background: black; opacity: 0.6;">
+            <p>XP: 2800<br>Strength: 62<br>Defense: 36</p>
+        </div>
+    </aside>
+    <footer class="indexFooter">
+        <div>
+            <a class="btn btn-primary btn-xs" asp-area="" asp-controller="Home" asp-action="Index">Attack!</a>
+            <a class="btn btn-primary btn-xs" asp-area="" asp-controller="" asp-action="">Block</a>
+            <a class="btn btn-primary btn-xs" asp-area="" asp-controller="" asp-action="">Give up!</a>
+        </div>
+    </footer>
+</div>
+

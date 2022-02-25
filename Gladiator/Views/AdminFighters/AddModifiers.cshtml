@@ -1,0 +1,94 @@
+﻿@model Gladiator.ViewModels.AdminFighters.AddModifiersViewModel
+
+@{
+    ViewData["Title"] = "Add modifiers to fighter";
+}
+
+<h2>Add modifiers to fighter</h2>
+
+<h4>Current modifiers in inventory</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Str
+            </th>
+            <th>
+                HP
+            </th>
+            <th>
+                XP
+            </th>
+            <th>
+                Def
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                TypeOfGear
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Modifiers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Str)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Xp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Def)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfGear)
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddModifiers">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="ModifiersId" class="mb-2 mr-sm-2"></label>
+                <select asp-for="ModifiersId" asp-items="Model.ModifiersSelectList" class="btn btn-primary dropdown-toggle"></select>
+                <span asp-validation-for="ModifiersId"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Add Modifier" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

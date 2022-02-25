@@ -1,0 +1,188 @@
+﻿@{ ViewData["Title"] = "Gladiator"; }
+
+@section Scripts {
+	<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+	<script src="~/js/fight.js" asp-append-version="true"></script>
+}
+
+<style>
+	/* kommer lägga style:grejor in i css när vi närmar oss 100% med UI:layouten */
+	.indexHeader {
+		grid-area: header;
+		text-align: center;
+		white-space: normal;
+		height: 90px;
+		width: 320px;
+		position: center;
+		margin: 0px;
+		padding: 10px;
+		padding-top: 0px;
+	}
+
+	.indexLeft {
+		grid-area: menu;
+		text-align: center;
+		height: 562px;
+		width: 350px;
+		position: unset;
+		margin: 0px;
+		margin-left: 15px;
+		padding: 10px;
+	}
+
+    .indexMain {
+        grid-area: main;
+        text-align: left;
+        font-family: Arial, sans-serif, 14px;
+        height: 382px;
+        width: 320px;
+        border: 3px solid cyan;
+        background-color: black;
+        opacity: 0.8;
+        position: center;
+        overflow-x: hidden;
+        overflow-y: auto;
+        margin: 0px;
+        padding: 15px;
+    }
+
+	.indexRight {
+		grid-area: right;
+		text-align: center;
+		height: 562px;
+		width: 350px;
+		margin: 0px;
+		padding: 10px;
+	}
+
+	.indexFooter {
+		grid-area: footer;
+		text-align: center;
+		height: 90px;
+		width: 320px;
+		position: center;
+		margin: 0px;
+		padding: 10px;
+	}
+
+	.overlayLeft {
+		z-index: 9;
+		text-align: initial;
+		color: #fff;
+		width: 100px;
+		position: center;
+		margin-left: 15px;
+		padding: 10px;
+	}
+
+	.overlayRight {
+		z-index: 3;
+		text-align: initial;
+		color: #fff;
+		width: 100px;
+		justify-self: center;
+		margin-left: 15px;
+		padding: 10px;
+	}
+	/* just nu härmar Left*/
+
+	.grid-container {
+		display: grid;
+		grid-template-areas:
+			'menu menu header header right right'
+			'menu menu main main right right'
+			'menu menu footer footer right right';
+		grid-gap: 10px;
+		padding: 10px;
+		margin: 0px;
+	}
+
+		.grid-container > div {
+			text-align: center;
+			justify-items: center;
+			padding: 10px;
+			font-size: 12px;
+		}
+
+	.progress span {
+		margin: 30px;
+		display: flow;
+		position: center;
+		width: 80%;
+		height: 30px;
+	}
+
+	.player1HP {
+		color: #000;
+		background-color: aqua;
+		width: 100%;
+	}
+
+	.player2HP {
+		color: #000;
+		background-color: aqua;
+		width: 100%;
+	}
+
+	body {
+		background-image: url(/img/bg/gA1d.png);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: top center;
+	}
+</style>
+<div id="fight-data" data-challengerid=@TempData["challengerId"] data-adversaryid=@TempData["adversaryId"] data-arenaid=@TempData["arenaId"] hidden></div>
+
+<!-- TEXTDELAR BÖR KOMPLETTERAS MED IF-SATSER ELLER DYLIKT FÖR ATT SWITCHA MELLAN DEFAULT TEXT = synlig för alla vs ACTIVE GAME TEXT = synlig för inloggade -->
+<!-- (gör mer än gärna så mycket jag kan, men har inte grejat med identity m.fl. tillräckligt för å fixa detta på egen hand inom ett par timmar...) -->
+<div id="serverId"></div>
+<div class="grid-container">
+	<aside class="indexLeft">
+		<!-- antingen if-sats eller ViewBag med spelarens namn; annars: PLAYER 1 -->
+		<h5 id="Name1"></h5>   <!-- KAN VI FÅ TILL EN  if-sats HÄR? if (inloggad/spelet aktivt){visa spelarens namn} else {visa PLAYER 1} ) -->
+		<div class="progress" style="width: 150px; height: 15px; margin-left: 90px;">
+			<div id="ProgressBar1" class="progress-bar player1HP" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+		</div>
+		<div>
+			<img id="Avatar1" src="/img/gl/5.png" width="300" height="500" class="center-block">
+		</div>
+		<div class="overlayLeft" style="background: black; opacity: 0.8;">
+			<p>
+				XP: <span id="Xp1"></span><br />
+				Strength: <span id="Str1"></span><br />
+				Defense: <span id="Def1"></span>
+			</p>
+		</div>
+	</aside>
+	<div>
+		<div class="indexHeader">
+			<h5 id="FightType">GLADIATOR PVP</h5>  <!-- if-sats eller dyl; if (aktivt spel && pve) {byt nament till GLADIATOR PVE} else {GLADIATOR PVP} -->
+			<h1>VS</h1>
+		</div>
+		<div id="MainLog" class="indexMain">
+			<!-- if-sats (eller dyl) för default-texten som switchas mot combat log i berättande textform vid aktivt spel -->
+		</div>
+	</div>
+	<aside class="indexRight">
+		<h5 id="Name2"></h5>   <!-- antingen if-sats eller ViewBag med spelarens namn; annars: PLAYER 2 -->
+		<div class="progress" style="width: 150px; height: 15px; margin-left: 90px;">
+			<div id="ProgressBar2" class="progress-bar player2HP" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+		</div>
+		<div>
+			<img id="Avatar2" src="/img/gl/3.png" width="300" height="500" class="center-block" style="transform: scaleX(-1)">
+		</div>
+		<div class="overlayLeft" style="background: black; opacity: 0.8;">
+			<p>
+				XP: <span id="Xp2"></span><br />
+				Strength: <span id="Str2"></span><br />
+				Defense: <span id="Def2"></span>
+			</p>
+		</div>
+	</aside>
+	<footer class="indexFooter">
+		<div>
+			<input type="button" class="btn btn-primary btn-xs" id="attackButton" value="No Fight Yet" />
+		</div>
+	</footer>
+</div>
+

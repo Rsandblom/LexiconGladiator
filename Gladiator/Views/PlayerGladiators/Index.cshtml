@@ -1,0 +1,77 @@
+﻿@model Gladiator.ViewModels.PlayerGladiatorsIndexViewModel
+
+@{
+    ViewData["Title"] = "Gladiators";
+}
+
+<style>
+    body {
+        grid-area: main;
+        text-align: left;
+        font-family: Arial, sans-serif, 14px;
+        color: cyan;
+        opacity: 0.8;
+        margin: 0px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    td {
+        color: lightblue;
+    }
+
+    </style >
+
+    <h3 > My Gladiators</h3 >
+    <table class="table" >
+    <thead >
+    <tr >
+    <th >
+    Name
+    </th >
+    <th > </th >
+    </tr >
+    </thead >
+    <tbody >
+    @foreach (var item in Model.PlayersGladiatorsList)
+        {
+             <tr >
+    <td >
+    @Html.DisplayFor(modelItem => item.Name)
+    </td >
+    <td >
+    <a asp-action="GearShop" asp-route-id="@item.Id" > GearShop</a > |
+    <a asp-action="Edit" asp-route-id="@item.Id" > Edit</a > |
+    <a asp-action="Details" asp-route-id="@item.Id" > Details</a > |
+    <a asp-action="Delete" asp-route-id="@item.Id" > Delete</a >
+    </td >
+    </tr >
+        }
+    </tbody >
+    </table >
+
+    <h3 > Standard Gladiators</h3 >
+    <table class="table" >
+    <thead >
+    <tr >
+    <th >
+    Name
+    </th >
+    <th > </th >
+    </tr >
+    </thead >
+    <tbody >
+    @foreach (var item in Model.StandardGladiatorsList)
+        {
+             <tr >
+    <td >
+    @Html.DisplayFor(modelItem => item.Name)
+    </td >
+
+    <td >
+    <a asp-action="Details" asp-route-id="@item.Id" > Details</a > |
+    <a asp-action="Recruit" asp-route-id="@item.Id" > Recruit</a >
+    </td >
+    </tr >
+        }
+    </tbody >
+    </table >

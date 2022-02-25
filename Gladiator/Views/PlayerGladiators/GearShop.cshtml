@@ -1,0 +1,16 @@
+﻿@model Gladiator.Models.Fighter
+
+<h1 class="mb-3">Gear shop</h1>
+<div id="root"></div>
+
+
+<script>
+    var gladiatorId = '@Model.Id';
+</script>
+<script type="text/babel" src="~/react/GearShop.js"></script>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+

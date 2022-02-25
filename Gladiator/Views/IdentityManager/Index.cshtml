@@ -1,0 +1,74 @@
+﻿@model Gladiator.ViewModels.IdentityManagerViewModel
+
+@{
+    ViewData["Title"] = "Registered Users Management";
+}
+
+
+<h2>Roles</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Role
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.RolesList) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<h2>Registered Users</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                First name
+            </th>
+            <th>
+                Last name
+            </th>
+            <th>
+                See Details and Edit user
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserWithRolesList)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>           
+            <td>
+                <div>
+                    <form asp-action="Edit" method="get">
+                        <input type="hidden" asp-for="@item.Id" />
+                        <input class="btn btn-primary" type="submit" value="Details and Edit" asp-controller="IdentityManager" asp-action="Edit" asp-route-id="@item.Id" />
+                    </form>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<hr class="mt-5">

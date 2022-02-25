@@ -1,0 +1,88 @@
+﻿@model Gladiator.Data.GladiatorContext
+
+@{ ViewData["Title"] = "Wall of Glory"; }
+
+
+<style>
+    .item1 { grid-area: header; text-align: center; white-space: normal; height: 90px; width: 1000px; position: center; margin: 0px; padding: 10px; padding-top: 0px; }
+    .item2 { grid-area: menu; text-align: center; height: 382px; width: 500px; justify-items: right; margin: 0px; padding: 10px; }
+    .boxL { grid-area: main; text-align: left; font-family: Arial, sans-serif, 14px; color: white; height: 382px; width: 320px; border: 3px solid cyan;
+        background-color: black; opacity: 0.7; justify-items: right; margin: 0px; padding: 15px; }
+    .boxR { grid-area: main; text-align: left; font-family: Arial, sans-serif, 14px; color: white; height: 382px; width: 320px; border: 3px solid cyan;
+        background-color: black; opacity: 0.7; align-items: center; margin: 0px; padding: 15px; }
+    .item4 { grid-area: right; text-align: center; height: 382px; width: 500px; margin: 0px; padding: 10px; }
+    .item5 { grid-area: footer; text-align: center; height: 90px; width: 1000px; position: center; margin: 0px; padding: 10px; }
+
+    .grid-container {
+        display: grid;
+        grid-template-areas:
+            'header header header header header header'
+            'menu menu menu right right right'
+            'footer footer footer footer footer footer';
+        grid-gap: 0px;
+        padding: 10px;
+        margin: 0px;
+    }
+
+        .grid-container > div { text-align: center; padding: 10px; font-size: 12px; justify-items: center; }
+
+    body { background-image: url(/img/bg/mbg2c.png); background-size: contain; background-repeat: no-repeat; background-position: top center; }
+</style>
+
+<div class="grid-container">
+    <header class="item1">
+        <div class="item1"><h1>Wall of Glory</h1></div>
+    </header>
+
+    <!-- left side container -->
+    <aside class="col-lg-4 col-md-4 col-sm-4 container justify-content-center">
+        <div>
+            <div class="boxL" id="playerScore">
+                <!-- right box (needs list with foreach doing top ten) -->
+                Top player highscore list: <br>
+                <table>
+                    <tr>
+                        <th>Place</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                    @foreach (var hs in HighScore.GetUsersHighscores(Model))
+                    {
+                        <tr>
+                            <td>@{@hs.Position}.</td>
+                            <td>@hs.Name</td>
+                            <td>@hs.FightsWon wins</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </aside>
+
+    <!-- right side container -->
+    <aside class="item4 container justify-content-center">
+        <div>
+            <div class="boxR" id="fighterScore">
+                <!-- right box (needs list with foreach doing top ten) -->
+                Top gladiator highscore list: <br>
+                <table>
+                    <tr>
+                        <th>Place</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                    @foreach (var hs in HighScore.GetFighterHighscores(Model))
+                    {
+                        <tr>
+                            <td>@{@hs.Position}.</td>
+                            <td>@hs.Name</td>
+                            <td>@hs.FightsWon wins</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </aside>
+    <footer class="item5"></footer>
+</div>
+
